@@ -1,18 +1,19 @@
 <?php
 
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrcamentoController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('orcamentos.index');
+});
+
+
+Route::group(['prefix' => 'orcamento' ], function() {
+    Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
+    Route::get('/create', [OrcamentoController::class, 'create'])->name('orcamento.create');
+    Route::get('/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
 });
