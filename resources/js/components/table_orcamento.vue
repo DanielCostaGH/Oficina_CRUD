@@ -41,24 +41,24 @@
 
         <table class="w-full">
             <thead>
-                <tr class="text-left">
-                    <th class="border-gray-400 bg-gray-200 p-4">ID</th>
-                    <th class="border-gray-400 bg-gray-200 p-4">Título</th>
-                    <th class="border-gray-400 bg-gray-200 p-4">Cliente</th>
-                    <th class="border-gray-400 bg-gray-200 p-4">Vendedor</th>
-                    <th class="border-gray-400 bg-gray-200 p-4">Valor</th>
-                    <th class="border-gray-400 bg-gray-200 p-4">Data</th>
-                    <th class="border-gray-400 bg-gray-200 p-4"></th>
+                <tr class="text-left bg-gray-200 p-4 rounded">
+                    <th class="p-4">ID</th>
+                    <th class="p-4">Título</th>
+                    <th class="p-4">Cliente</th>
+                    <th class="p-4">Vendedor</th>
+                    <th class="p-4">Valor</th>
+                    <th class="p-4">Data</th>
+                    <th class="p-4"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(orcamento, index) in orcamentos" :key="orcamento.id">
+                <tr v-for="(orcamento, index) in orcamentosOrdenados" :key="orcamento.id">
                     <td class="border-gray-400 p-4 w-1/12">{{ orcamento.id }}</td>
                     <td class="border-gray-400 p-4 w-3/12">{{ orcamento.titulo }}</td>
-                    <td class="border-gray-400 p-4 w-3/12">{{ orcamento.cliente }}</td>
-                    <td class="border-gray-400 p-4 w-3/12">{{ orcamento.vendedor }}</td>
-                    <td class="border-gray-400 p-4 w-1/12">R$ {{ orcamento.valor }}</td>
-                    <td class="border-gray-400 p-4 w-1/12">{{ formatarDataParaExibicao(orcamento.data) }}</td>
+                    <td class="border-gray-400 p-4 w-2/12">{{ orcamento.cliente }}</td>
+                    <td class="border-gray-400 p-4 w-2/12">{{ orcamento.vendedor }}</td>
+                    <td class="border-gray-400 p-4 w-2/12">R$ {{ orcamento.valor }}</td>
+                    <td class="border-gray-400 p-4 w-2/12">{{ formatarDataParaExibicao(orcamento.data) }}</td>
                     <td class="border-gray-400 p-4 flex">
                         <!-- botões -->
                         <div class="flex w-full justify-between">
@@ -117,7 +117,6 @@ import viewM from '../components/view_orcamento.vue';
 import axios from 'axios';
 
 export default {
-
     data() {
         return {
             showEditModal: false,
@@ -138,11 +137,18 @@ export default {
         Edit,
         DelM,
         viewM,
-
+    },
+    computed: {
+        orcamentosOrdenados() {
+            return this.orcamentos.slice().sort((a, b) => {
+                const dataA = new Date(a.data);
+                const dataB = new Date(b.data);
+                return dataB - dataA;
+            });
+        },
     },
     methods: {
         openViewModal(orcamento) {
-            // Define o orçamento selecionado pra edição
             this.orcamentoView = orcamento;
             this.showViewModal = true;
         },
@@ -150,7 +156,6 @@ export default {
             this.showViewModal = false;
         },
         openEditModal(orcamento) {
-            // Define o orçamento selecionado pra edição
             this.orcamentoSelecionado = orcamento;
             this.showEditModal = true;
         },
@@ -164,10 +169,6 @@ export default {
         closeDelModal() {
             this.showDelModal = false;
         },
-
-
-
-        // Método pra buscar os orçamentos
         fetchOrcamentos() {
             axios.get('/api/orcamentosList')
                 .then((response) => {
@@ -177,7 +178,6 @@ export default {
                     console.error(error);
                 });
         },
-
         filtrarOrcamentos() {
             const filtros = {
                 cliente: this.nomeCliente,
@@ -188,18 +188,15 @@ export default {
                 valorAbaixoDe: this.valorAbaixoDe,
                 valorAcimaDe: this.valorAcimaDe,
             };
-
             axios.post('/api/orcamentosFilter', filtros)
                 .then((response) => {
-                    this.orcamentos = response.data; // Atualize a variável orcamentos com os resultados
+                    this.orcamentos = response.data;
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         },
-
         limparFiltros() {
-            // Limpe todos os campos de filtro
             this.nomeCliente = '';
             this.nomeVendedor = '';
             this.tituloOrcamento = '';
@@ -207,28 +204,20 @@ export default {
             this.dataFinal = '';
             this.valorAbaixoDe = '';
             this.valorAcimaDe = '';
-
-            // Recarregue os orçamentos sem filtros
             this.fetchOrcamentos();
         },
-
         formatarDataParaExibicao(data) {
             if (data) {
                 const date = new Date(data);
-                const dia = date.getDate().toString().padStart(2, '0');
+                const dia = (date.getDate() + 1).toString().padStart(2, '0');
                 const mes = (date.getMonth() + 1).toString().padStart(2, '0');
                 const ano = date.getFullYear();
                 return `${dia}/${mes}/${ano}`;
             }
             return '';
         },
-
-
-
     },
-
     mounted() {
-        // Carregue a lista completa de orçamentos inicialmente
         this.fetchOrcamentos();
     },
 };

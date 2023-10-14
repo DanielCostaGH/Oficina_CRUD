@@ -5,9 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Orcamento;
 use App\Http\Requests\OrcamentoRequest;
+use Illuminate\Support\Carbon;
 
+
+
+/**
+ * Controlador para orçamentos.
+ */
 class OrcamentoController extends Controller
 {
+
+    /**
+     * Exibe a lista de todos os orçamentos.
+     *
+     * @param Request $request O objeto de solicitação HTTP.
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
 {
     $orcamentos = Orcamento::all();
@@ -22,7 +35,12 @@ class OrcamentoController extends Controller
     
 
 
-   
+   /**
+     * Armazena um novo orçamento.
+     *
+     * @param OrcamentoRequest $request O objeto de solicitação validado.
+     * @return \Illuminate\Http\Response
+     */
      public function store(OrcamentoRequest $request)
 {
     $data = $request->all();
@@ -34,7 +52,13 @@ class OrcamentoController extends Controller
 
 
    
-   
+     /**
+     * Atualiza um orçamento existente.
+     *
+     * @param Request $request 
+     * @param int $id ID do orçamento a ser atualizado.
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
 {
     $orcamento = Orcamento::find($id);
@@ -50,7 +74,12 @@ class OrcamentoController extends Controller
 }
 
 
-   
+    /**
+     * Exclui um orçamento.
+     *
+     * @param int $id ID do orçamento a ser excluído.
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
 {
     $orcamento = Orcamento::find($id);
@@ -65,6 +94,13 @@ class OrcamentoController extends Controller
 }
 
 
+
+/**
+     * Filtra os orçamentos com base em vários critérios.
+     *
+     * @param Request $request O objeto de solicitação HTTP.
+     * @return \Illuminate\Http\Response
+     */
 public function filtrar(Request $request)
 {
     $cliente = $request['cliente'];

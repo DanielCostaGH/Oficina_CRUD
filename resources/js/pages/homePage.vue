@@ -6,37 +6,28 @@
 
 
             <section class=" container mx-auto px-20">
+                <!-- Cabeçalho -->
                 <header>
-                   <painel/>
+                    <painel />
                 </header>
 
-                <!-- Acesso Rápido às Funcionalidades -->
+                <!-- Acesso Rápido para adicionar novo orçamento -->
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
                     <div class="">
-
-
                         <a @click="openAddModal"
-                            class="flex justify-center items-center p-7 border rounded-lg text-center text-xl font-bold
-              hover:bg-[#F3F4F5] hover:border-[#2A4178] hover:shadow-md text-[#4864A7] hover:text-[#2A4178] cursor-pointer">
+                            class="flex justify-center items-center p-7 border rounded-lg text-center text-xl font-bold hover:bg-[#F3F4F5] hover:border-[#2A4178] hover:shadow-md text-[#4864A7] hover:text-[#2A4178] cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.0"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
                             <span class="mx-5">Novo Orçamento</span>
                         </a>
-
-
-
-
-
                     </div>
                 </div>
 
 
-                <!-- Listagem de Produtos Recentes -->
+                <!-- Tabela de orçamentos -->
                 <div class="bg-white p-6 rounded-lg shadow mb-6 h-[50vh] overflow-y-scroll">
-
-                    
                     <tb_orcamento />
                 </div>
             </section>
