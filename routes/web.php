@@ -7,13 +7,16 @@ use App\Http\Controllers\OrcamentoController;
 
 
 
-Route::get('/', function () {
-    return view('orcamentos.index');
-});
+Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
 
 
-Route::group(['prefix' => 'orcamento' ], function() {
-    Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
-    Route::get('/create', [OrcamentoController::class, 'create'])->name('orcamento.create');
-    Route::get('/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
+Route::post('/addOrcamento', [OrcamentoController::class, 'store'])->name('orcamento.store');
+
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('/orcamentosList', [OrcamentoController::class, 'index']);
+    Route::put('/orcamentosUpdate/{id}', [OrcamentoController::class, 'update']);
+    Route::delete('/orcamentosDelete/{id}', [OrcamentoController::class, 'destroy']);
+    Route::post('/orcamentosFilter', [OrcamentoController::class, 'filtrar']);
 });
+

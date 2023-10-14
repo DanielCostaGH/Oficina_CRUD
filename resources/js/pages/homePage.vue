@@ -7,7 +7,7 @@
 
             <section class=" container mx-auto px-20">
                 <header>
-                    <painel />
+                   <painel/>
                 </header>
 
                 <!-- Acesso Rápido às Funcionalidades -->
@@ -15,7 +15,8 @@
                     <div class="">
 
 
-                        <a @click="openAddModal" class="flex justify-center items-center p-7 border rounded-lg text-center text-xl font-bold
+                        <a @click="openAddModal"
+                            class="flex justify-center items-center p-7 border rounded-lg text-center text-xl font-bold
               hover:bg-[#F3F4F5] hover:border-[#2A4178] hover:shadow-md text-[#4864A7] hover:text-[#2A4178] cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.0"
                                 stroke="currentColor" class="w-6 h-6">
@@ -25,7 +26,7 @@
                         </a>
 
 
-                        
+
 
 
                     </div>
@@ -35,12 +36,11 @@
                 <!-- Listagem de Produtos Recentes -->
                 <div class="bg-white p-6 rounded-lg shadow mb-6 h-[50vh] overflow-y-scroll">
 
-                    <h3 class="text-xl font-semibold mb-4">Orçamentos recentes</h3>
-                    <tb_orcamento/>
+                    
+                    <tb_orcamento />
                 </div>
             </section>
 
-            <!-- ... Resto do código ... -->
 
         </main>
     </div>
@@ -60,17 +60,17 @@ import Add from '../components/add_orcamento.vue'
 import tb_orcamento from '../components/table_orcamento.vue'
 
 export default {
+
     data() {
         return {
-            showAddModal:false,
+            showAddModal: false,
         };
     },
     components: {
         painel,
         Add,
         tb_orcamento,
-
-    }, 
+    },
     methods: {
         openAddModal() {
             this.showAddModal = true;
@@ -78,7 +78,10 @@ export default {
         closeAddModal() {
             this.showAddModal = false;
         },
+
     },
+
+
 };
 </script>
   

@@ -3,64 +3,87 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Orcamento; // Lembre-se de importar o modelo Orçamento se você estiver usando Eloquent
+use App\Models\Orcamento;
+use App\Http\Requests\OrcamentoRequest;
 
 class OrcamentoController extends Controller
 {
-    // Método para exibir a lista de orçamentos
-    public function index()
-    {
-        $orcamentos = Orcamento::all(); // Recupera todos os orçamentos do banco de dados
-        return view('orcamentos.index', compact('orcamentos'));
+    public function index(Request $request)
+{
+    $orcamentos = Orcamento::all();
+    
+    if ($request->wantsJson()) {
+        return response()->json($orcamentos);
     }
 
-    // Método para exibir o formulário de criação
-    public function create()
-    {
-        return view('orcamentos.create');
-    }
+    return view('orcamentos.index', compact('orcamentos'));
 
-    // Método para lidar com a criação de um novo orçamento
-    public function store(Request $request)
-    {
-        // Validação dos dados e salvamento no banco de dados
-        // (Exemplo: $orcamento = new Orcamento; $orcamento->fill($request->all()); $orcamento->save();)
+}
+    
 
-        return redirect()->route('orcamentos.index')
-            ->with('success', 'Orçamento criado com sucesso.');
-    }
 
-    // Método para exibir o formulário de edição
-    public function edit($id)
-    {
-        $orcamento = Orcamento::find($id);
-        return view('orcamentos.edit', compact('orcamento'));
-    }
+   
+     public function store(OrcamentoRequest $request)
+{
+    $data = $request->all();
+    Orcamento::create($data);
 
-    // Método para lidar com a atualização de um orçamento existente
+    return view('orcamentos.index')
+        ->with('success', 'Orçamento criado com sucesso.');
+}
+
+
+   
+   
     public function update(Request $request, $id)
-    {
-        // Validação dos dados e atualização no banco de dados
-        // (Exemplo: $orcamento = Orcamento::find($id); $orcamento->update($request->all());)
+{
+    $orcamento = Orcamento::find($id);
 
-        return redirect()->route('orcamentos.index')
-            ->with('success', 'Orçamento atualizado com sucesso.');
+    if (!$orcamento) {
+        return response()->json(['message' => 'Orçamento não encontrado'], 404);
     }
 
-    // Método para exibir a página de confirmação de exclusão
-    public function confirmDelete($id)
-    {
-        $orcamento = Orcamento::find($id);
-        return view('orcamentos.confirm-delete', compact('orcamento'));
-    }
+    $data = $request->all();
+    $orcamento->update($data);
 
-    // Método para lidar com a exclusão de um orçamento
+    return response()->json(['message' => 'Orçamento atualizado com sucesso']);
+}
+
+
+   
     public function destroy($id)
-    {
-        $orcamento = Orcamento::find($id);
-        $orcamento->delete();
+{
+    $orcamento = Orcamento::find($id);
 
-        return redirect()->route('orcamentos.index')
-            ->with('success', 'Orçamento excluído com sucesso.');
+    if (!$orcamento) {
+        return response()->json(['message' => 'Orçamento não encontrado'], 404);
     }
+
+    $orcamento->delete();
+
+    return response()->json(['message' => 'Orçamento excluído com sucesso']);
+}
+
+
+public function filtrar(Request $request)
+{
+    $cliente = $request['cliente'];
+    $dataInicio = $request['dataInicio'];
+    $dataFinal = $request['dataFinal'];
+    $titulo = $request['titulo'];
+    $valorAbaixoDe = $request['valorAbaixoDe'];
+    $valorAcimaDe = $request['valorAcimaDe'];
+    $vendedor = $request['vendedor'];
+    
+
+    $orcamentos = Orcamento::search($cliente, $dataInicio, $dataFinal, $titulo, $valorAbaixoDe, $valorAcimaDe, $vendedor);
+
+    
+    return response()->json($orcamentos);
+    // return view('orcamentos.filters', compact('orcamentos'));
+      
+}
+
+
+   
 }

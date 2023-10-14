@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
+        Schema::create('orcamentos', function (Blueprint $table) {
             $table->id();
-            $table->morphs('tokenable');
-            $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
+            $table->string('titulo');
+            $table->string('cliente');
+            $table->date('data');
+            $table->time('hora');
+            $table->string('vendedor');
+            $table->text('descricao');
+            $table->decimal('valor', 10, 2);
+            $table->string('email');
+            $table->string('fone');
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal_access_tokens');
+        Schema::dropIfExists('orcamentos');
     }
 };

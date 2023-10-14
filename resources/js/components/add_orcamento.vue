@@ -5,8 +5,6 @@
         <div class="bg-white p-6 rounded-lg shadow mb-6 mx-auto w-[80vh]">
           <div class="flex justify-between">
             <h1 class="font-bold text-lg pb-5">Adicionar Orçamento</h1>
-
-
             <button @click="closeAddModal" class="rounded-lg text-red-500 hover:text-red-700 flex">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
@@ -16,43 +14,38 @@
           </div>
 
           <!-- Formulário de Novo Orçamento -->
-          <form>
-
+          <form @submit.prevent="submitForm">
             <section class="flex w-full justify-between">
-
               <div class="mb-6 px-3 py-2 w-2/5">
                 <label for="titulo" class="block text-sm font-medium text-gray-700 mb-2">
                   Título do Orçamento
                 </label>
-                <input type="text" id="titulo" name="titulo" placeholder="Digite o titulo"
+                <input type="text" id="titulo" name="titulo" placeholder="Digite o título" v-model="formData.titulo"
                   class="mt-1 w-full shadow block  sm:text-sm border-b border-gray-400 rounded-md px-3 py-2" />
               </div>
-
-
               <div class="mb-6 px-3 py-2 w-2/5">
                 <label for="cliente" class="block text-sm font-medium text-gray-700 mb-2">
                   Cliente
                 </label>
-                <input type="text" id="cliente" name="cliente" placeholder="Digite o nome do cliente" 
+                <input type="text" id="cliente" name="cliente" placeholder="Digite o nome do cliente"
+                  v-model="formData.cliente"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
               </div>
-
             </section>
-
             <div class="mb-6">
               <div class="grid grid-cols-2 gap-4">
                 <div class="px-3 py-2">
                   <label for="data" class="block text-sm font-medium text-gray-700 mb-2">
                     Data do Orçamento
                   </label>
-                  <input type="date" id="data" name="data"
+                  <input type="date" id="data" name="data" v-model="formData.data"
                     class="mt-1  block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
                 </div>
                 <div class="px-3 py-2">
                   <label for="hora" class="block text-sm font-medium text-gray-700 mb-2">
                     Hora do Orçamento
                   </label>
-                  <input type="time" id="hora" name="hora"
+                  <input type="time" id="hora" name="hora" v-model="formData.hora"
                     class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
                 </div>
               </div>
@@ -61,7 +54,8 @@
               <label for="descricao" class="block text-sm font-medium text-gray-700 mb-2">
                 Descrição
               </label>
-              <textarea id="descricao" name="descricao" rows="4" placeholder="Digite oa descrição do orçamento"
+              <textarea id="descricao" name="descricao" rows="4" placeholder="Digite a descrição do orçamento"
+                v-model="formData.descricao"
                 class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2"></textarea>
             </div>
             <section class="flex w-full justify-between">
@@ -70,18 +64,34 @@
                   Vendedor
                 </label>
                 <input type="text" id="vendedor" name="vendedor" placeholder="Digite o nome do vendedor"
+                  v-model="formData.vendedor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
               </div>
-
               <div class="mb-6 px-3 py-2 w-2/5">
                 <label for="valor" class="block text-sm font-medium text-gray-700 mb-2">
                   Valor Orçado
                 </label>
-                <input type="text" id="valor" name="valor" placeholder="Digite o valor"
+                <input type="text" id="valor" name="valor" placeholder="Digite o valor" v-model="formData.valor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
               </div>
             </section>
-
+            <section class="flex w-full justify-between">
+              <div class="mb-6 px-3 py-2 w-2/5">
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                  Email
+                </label>
+                <input type="email" id="email" name="email" placeholder="Digite o email do cliente"
+                  v-model="formData.email"
+                  class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+              </div>
+              <div class="mb-6 px-3 py-2 w-2/5">
+                <label for="fone" class="block text-sm font-medium text-gray-700 mb-2">
+                  Número de Telefone
+                </label>
+                <input type="text" id="fone" name="fone" placeholder="Apenas dígitos" v-model="formData.fone"
+                  class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+              </div>
+            </section>
             <div class="mb-6 px-3 py-2">
               <button type="submit"
                 class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -95,22 +105,62 @@
   </div>
 </template>
 
+
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
-            showAddModal:false,
-        };
+      showAddModal: false,
+      formData: {
+        titulo: '',
+        cliente: '',
+        data: '',
+        hora: '',
+        descricao: '',
+        vendedor: '',
+        valor: '',
+        email: '',
+        fone: '',
+      },
+    };
   },
   components: {
 
   },
 
   methods: {
-        closeAddModal() {
-            this.showAddModal = false;
-        },
+    closeAddModal() {
+      this.showAddModal = false;
     },
+    submitForm() {
+      console.log(this.formData)
+    // validação dos campos aqui
+    if (!this.formData.titulo || !this.formData.cliente || !this.formData.data || !this.formData.hora ||
+        !this.formData.descricao || !this.formData.vendedor || !this.formData.valor || !this.formData.email ||
+        !this.formData.fone) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    // request da Api
+    axios.post('/addOrcamento', this.formData)
+      .then(response => {
+        this.showAddModal = false; 
+        alert('Orçamento registrado!');
+        window.location.href = '/';
+        
+      })
+      .catch(error => {
+    console.error(error);
+    if (error.response) {
+      console.log("Response data:", error.response.data);
+      console.log("Response status:", error.response.status);
+    }
+    alert("Ocorreu um erro ao enviar o formulário. Verifique o console para mais informações.");
+  });
+  },
+  },
 
 };
 </script>
