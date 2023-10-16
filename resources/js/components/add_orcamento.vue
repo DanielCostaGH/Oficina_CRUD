@@ -32,8 +32,9 @@
                 <input type="text" id="cliente" name="cliente" placeholder="Digite o nome do cliente"
                   v-model="formData.cliente"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.cliente" class="text-red-500 text-sm mt-2">O nome do cliente é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !formData.cliente" class="text-red-500 text-sm mt-2">O nome do cliente é
+                  obrigatório.</p>
               </div>
             </section>
             <div class="mb-6">
@@ -44,8 +45,8 @@
                   </label>
                   <input type="date" id="data" name="data" v-model="formData.data"
                     class="mt-1  block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                    <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.data" class="text-red-500 text-sm mt-2">O campo data é obrigatório.</p>
+                  <!-- Mensagem de erro para Título -->
+                  <p v-if="showErrors && !formData.data" class="text-red-500 text-sm mt-2">O campo data é obrigatório.</p>
                 </div>
                 <div class="px-3 py-2">
                   <label for="hora" class="block text-sm font-medium text-gray-700 mb-2">
@@ -53,8 +54,8 @@
                   </label>
                   <input type="time" id="hora" name="hora" v-model="formData.hora"
                     class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                    <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.hora" class="text-red-500 text-sm mt-2">O horário é obrigatório.</p>
+                  <!-- Mensagem de erro para Título -->
+                  <p v-if="showErrors && !formData.hora" class="text-red-500 text-sm mt-2">O horário é obrigatório.</p>
                 </div>
               </div>
             </div>
@@ -65,8 +66,8 @@
               <textarea id="descricao" name="descricao" rows="4" placeholder="Digite a descrição do orçamento"
                 v-model="formData.descricao"
                 class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2"></textarea>
-                <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.descricao" class="text-red-500 text-sm mt-2">A descrição é obrigatória.</p>
+              <!-- Mensagem de erro para Título -->
+              <p v-if="showErrors && !formData.descricao" class="text-red-500 text-sm mt-2">A descrição é obrigatória.</p>
             </div>
             <section class="flex w-full justify-between">
               <div class="mb-6 px-3 py-2 w-2/5">
@@ -76,8 +77,9 @@
                 <input type="text" id="vendedor" name="vendedor" placeholder="Digite o nome do vendedor"
                   v-model="formData.vendedor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.vendedor" class="text-red-500 text-sm mt-2">O nome do vendedor é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !formData.vendedor" class="text-red-500 text-sm mt-2">O nome do vendedor é
+                  obrigatório.</p>
               </div>
               <div class="mb-6 px-3 py-2 w-2/5">
                 <label for="valor" class="block text-sm font-medium text-gray-700 mb-2">
@@ -85,8 +87,9 @@
                 </label>
                 <input type="text" id="valor" name="valor" placeholder="Digite o valor" v-model="formData.valor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.valor" class="text-red-500 text-sm mt-2">O campo valor é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !formData.valor" class="text-red-500 text-sm mt-2">O campo valor é obrigatório e
+                  deve ser numérico</p>
               </div>
             </section>
             <section class="flex w-full justify-between">
@@ -97,17 +100,19 @@
                 <input type="email" id="email" name="email" placeholder="Digite o email do cliente"
                   v-model="formData.email"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.email" class="text-red-500 text-sm mt-2">O email do cliente é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !formData.email" class="text-red-500 text-sm mt-2">O email do cliente é
+                  obrigatório.</p>
               </div>
               <div class="mb-6 px-3 py-2 w-2/5">
                 <label for="fone" class="block text-sm font-medium text-gray-700 mb-2">
                   Número de Telefone
                 </label>
-                <input type="text" id="fone" name="fone" placeholder="Apenas dígitos" v-model="formData.fone"
+                <input type="text" id="fone" name="fone" placeholder="DDD+numero (Apenas dígitos)" v-model="formData.fone"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !formData.fone" class="text-red-500 text-sm mt-2">O numero do cliente é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !formData.fone" class="text-red-500 text-sm mt-2">Telefone é obrigatório e deve ser
+                  válido.</p>
               </div>
             </section>
             <div class="mb-6 px-3 py-2">
@@ -153,10 +158,65 @@ export default {
       this.$emit('close-modal');
     },
     submitForm() {
-      this.showErrors = true; // Mostrar mensagens de erro ao clicar em "Salvar"
+      this.showErrors = true;
+      // Validação do campo título
+      if (!this.formData.titulo) {
+        alert('O campo "Título do Orçamento" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo cliente
+      if (!this.formData.cliente) {
+        alert('O campo "Cliente" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo data
+      if (!this.formData.data) {
+        alert('O campo "Data do Orçamento" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo hora
+      if (!this.formData.hora) {
+        alert('O campo "Hora do Orçamento" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo descrição
+      if (!this.formData.descricao) {
+        alert('O campo "Descrição" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo vendedor
+      if (!this.formData.vendedor) {
+        alert('O campo "Vendedor" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo valor
+      if (!/^\d+(\.\d+)?$/.test(this.formData.valor)) {
+        alert('O campo "Valor Orçado" deve ser um número decimal válido.');
+        return;
+      }
+
+      // Validação do campo email
+      if (!this.formData.email || !/^\S+@\S+\.\S+$/.test(this.formData.email)) {
+        alert('O campo "Email" deve ser um endereço de email válido.');
+        return;
+      }
+
+      // Validação do campo fone
+      if (!this.formData.fone || !/^\d{9,11}$/.test(this.formData.fone)) {
+        alert('O campo "Número de Telefone" deve conter de 9 a 11 dígitos.');
+        return;
+      }
+
+
       if (!this.formData.titulo || !this.formData.cliente || !this.formData.data || !this.formData.hora ||
-          !this.formData.descricao || !this.formData.vendedor || !this.formData.valor || !this.formData.email ||
-          !this.formData.fone) {
+        !this.formData.descricao || !this.formData.vendedor || !this.formData.valor || !this.formData.email ||
+        !this.formData.fone) {
         alert('Favor preencher todos os campos')
         return;
       }
@@ -174,8 +234,15 @@ export default {
           if (error.response) {
             console.log("Response data:", error.response.data);
             console.log("Response status:", error.response.status);
+
+            if (error.response.status === 422) {
+              // Erros de validação do back-end
+              this.formData = { ...this.formData, ...error.response.data.errors };
+            }
+          } else {
+            console.error(error);
+            alert("Ocorreu um erro ao enviar o formulário. Verifique o console para mais informações.");
           }
-          alert("Ocorreu um erro ao enviar o formulário. Verifique o console para mais informações.");
         });
     },
   },

@@ -89,7 +89,7 @@
                 <input type="text" id="valor" name="valor" v-model="orcamento.valor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
                    <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.valor" class="text-red-500 text-sm mt-2">O campo valor é obrigatório.</p>
+                <p v-if="showErrors && errors.valor" class="text-red-500 text-sm mt-2">{{ errors.valor[0] }}</p>
               </div>
             </section>
 
@@ -137,7 +137,7 @@ export default {
   data() {
     return {
       showErrors: false,
-     
+      errors: {},
     };
   },
 
@@ -146,14 +146,63 @@ export default {
             this.$emit('close-modal'); // Emita o evento personalizado para fechar o modal
         },
     
-    submitForm() {
-      this.showErrors = true; // Mostrar mensagens de erro ao clicar em "Salvar"
-      if (!this.orcamento.titulo || !this.orcamento.cliente || !this.orcamento.data || !this.orcamento.hora ||
-          !this.orcamento.descricao || !this.orcamento.vendedor || !this.orcamento.valor || !this.orcamento.email ||
-          !this.orcamento.fone) {
-        alert('Favor preencher todos os campos');
-        return;
-      }
+        submitForm() {
+      this.showErrors = true;
+
+
+     // Validação do campo título
+    if (!this.orcamento.titulo) {
+      alert('O campo "Título do Orçamento" é obrigatório.');
+      return;
+    }
+
+    // Validação do campo cliente
+    if (!this.orcamento.cliente) {
+      alert('O campo "Cliente" é obrigatório.');
+      return;
+    }
+
+    // Validação do campo data
+    if (!this.orcamento.data) {
+      alert('O campo "Data do Orçamento" é obrigatório.');
+      return;
+    }
+
+    // Validação do campo hora
+    if (!this.orcamento.hora) {
+      alert('O campo "Hora do Orçamento" é obrigatório.');
+      return;
+    }
+
+    // Validação do campo descrição
+    if (!this.orcamento.descricao) {
+      alert('O campo "Descrição" é obrigatório.');
+      return;
+    }
+
+    // Validação do campo vendedor
+    if (!this.orcamento.vendedor) {
+      alert('O campo "Vendedor" é obrigatório.');
+      return;
+    }
+
+    // Validação do campo valor
+    if (!/^\d+(\.\d+)?$/.test(this.orcamento.valor)) {
+      alert('O campo "Valor Orçado" deve ser um número decimal válido.');
+      return;
+    }
+
+    // Validação do campo email
+    if (!this.orcamento.email || !/^\S+@\S+\.\S+$/.test(this.orcamento.email)) {
+      alert('O campo "Email" deve ser um endereço de email válido.');
+      return;
+    }
+
+    // Validação do campo fone
+if (!this.orcamento.fone || !/^\d{9,11}$/.test(this.orcamento.fone)) {
+  alert('O campo "Número de Telefone" deve conter de 9 a 11 dígitos.');
+  return;
+}
 
       const dados = {
         titulo: this.orcamento.titulo,
@@ -167,14 +216,27 @@ export default {
         fone: this.orcamento.fone,
       };
 
-      axios.put(`/api/orcamentosUpdate/${this.orcamento.id}`, dados)
+      axios
+        .put(`/api/orcamentosUpdate/${this.orcamento.id}`, dados)
         .then((response) => {
           console.log('Orçamento atualizado com sucesso', response.data);
-          alert("Orçamento atualizado com sucesso")
+          alert("Orçamento atualizado com sucesso");
           window.location.href = '/';
         })
         .catch((error) => {
-          console.error('Erro ao atualizar o orçamento', error);
+          console.error(error);
+          if (error.response) {
+            console.log("Response data:", error.response.data);
+            console.log("Response status:", error.response.status);
+
+            if (error.response.status === 422) {
+              // Erros de validação do back-end
+              this.errors = error.response.data.errors; // Armazena as mensagens de erro
+            }
+          } else {
+            console.error(error);
+            alert("Ocorreu um erro ao enviar o formulário. Verifique o console para mais informações.");
+          }
         });
     }
   },
