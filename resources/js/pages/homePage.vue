@@ -40,7 +40,7 @@
     <!-- Modal de Adicionar -->
     <div v-if="showAddModal" class="fixed inset-0 flex items-center justify-center z-50" @click="closeAddModal"
         style="background-color: rgba(0, 0, 0, 0.5);">
-        <Add />
+        <Add @close-modal="closeAddModal" />
     </div>
 </template>
   

@@ -23,6 +23,8 @@
                 </label>
                 <input type="text" id="titulo" name="titulo" v-model="orcamento.titulo"
                   class="mt-1 w-full  block sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                  <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.titulo" class="text-red-500 text-sm mt-2">O título é obrigatório.</p>
               </div>
 
               <div class="mb-6 px-3 py-2 w-2/5">
@@ -31,6 +33,8 @@
                 </label>
                 <input type="text" id="cliente" name="cliente" v-model="orcamento.cliente"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                  <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.cliente" class="text-red-500 text-sm mt-2">O nome do cliente é obrigatório.</p>
               </div>
             </section>
 
@@ -42,6 +46,8 @@
                   </label>
                   <input type="date" id="data" name="data" v-model="orcamento.data"
                     class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                    <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.data" class="text-red-500 text-sm mt-2">O campo data é obrigatório.</p>
                 </div>
                 <div class="px-3 py-2">
                   <label for="hora" class="block text-sm font-medium text-gray-700 mb-2">
@@ -49,6 +55,8 @@
                   </label>
                   <input type="time" id="hora" name="hora" v-model="orcamento.hora"
                     class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                    <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.hora" class="text-red-500 text-sm mt-2">O horário é obrigatório.</p>
                 </div>
               </div>
             </div>
@@ -59,6 +67,8 @@
               </label>
               <textarea id="descricao" name="descricao" v-model="orcamento.descricao" rows="4"
                 class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2"></textarea>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.descricao" class="text-red-500 text-sm mt-2">A descrição é obrigatória.</p>
             </div>
 
             <section class="flex w-full justify-between">
@@ -68,6 +78,8 @@
                 </label>
                 <input type="text" id="vendedor" name="vendedor" v-model="orcamento.vendedor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                   <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.vendedor" class="text-red-500 text-sm mt-2">O nome do vendedor é obrigatório.</p>
               </div>
 
               <div class="mb-6 px-3 py-2 w-2/5">
@@ -76,6 +88,8 @@
                 </label>
                 <input type="text" id="valor" name="valor" v-model="orcamento.valor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                   <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.valor" class="text-red-500 text-sm mt-2">O campo valor é obrigatório.</p>
               </div>
             </section>
 
@@ -86,6 +100,8 @@
                 </label>
                 <input type="email" id="email" name="email" v-model="orcamento.email"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                  <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.email" class="text-red-500 text-sm mt-2">O email do cliente é obrigatório.</p>
               </div>
 
               <div class="mb-6 px-3 py-2 w-2/5">
@@ -94,6 +110,8 @@
                 </label>
                 <input type="text" id="fone" name="fone" v-model="orcamento.fone"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
+                  <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.fone" class="text-red-500 text-sm mt-2">O numero do cliente é obrigatório.</p>
               </div>
             </section>
 
@@ -118,6 +136,7 @@ export default {
 
   data() {
     return {
+      showErrors: false,
      
     };
   },
@@ -128,6 +147,14 @@ export default {
         },
     
     submitForm() {
+      this.showErrors = true; // Mostrar mensagens de erro ao clicar em "Salvar"
+      if (!this.orcamento.titulo || !this.orcamento.cliente || !this.orcamento.data || !this.orcamento.hora ||
+          !this.orcamento.descricao || !this.orcamento.vendedor || !this.orcamento.valor || !this.orcamento.email ||
+          !this.orcamento.fone) {
+        alert('Favor preencher todos os campos');
+        return;
+      }
+
       const dados = {
         titulo: this.orcamento.titulo,
         cliente: this.orcamento.cliente,
