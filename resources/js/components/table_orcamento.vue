@@ -99,12 +99,12 @@
         <!-- Modal de Edição -->
         <div v-if="showEditModal" class="fixed inset-0 flex items-center justify-center z-50" @click="closeEditModal"
             style="background-color: rgba(0, 0, 0, 0.5);">
-            <Edit :orcamento="orcamentoSelecionado"  @close-modal="closeEditModal"/>
+            <Edit :orcamento="orcamentoSelecionado" @close-modal="closeEditModal" />
         </div>
         <!-- Modal de Exclusão -->
         <div v-if="showDelModal" class="fixed inset-0 flex items-center justify-center z-50" @click="closeDelModal"
             style="background-color: rgba(0, 0, 0, 0.5);">
-            <DelM :orcamento="orcamentoToDelete"  @close-modal="closeDelModal"/>
+            <DelM :orcamento="orcamentoToDelete" @close-modal="closeDelModal" />
         </div>
 
     </div>
@@ -115,6 +115,8 @@ import Edit from '../components/edit_orcamento.vue';
 import DelM from '../components/delete_orcamento.vue';
 import viewM from '../components/view_orcamento.vue';
 import axios from 'axios';
+import moment from 'moment';
+
 
 export default {
     data() {
@@ -206,16 +208,15 @@ export default {
             this.valorAcimaDe = '';
             this.fetchOrcamentos();
         },
+        
         formatarDataParaExibicao(data) {
             if (data) {
-                const date = new Date(data);
-                const dia = (date.getDate() + 1).toString().padStart(2, '0');
-                const mes = (date.getMonth() + 1).toString().padStart(2, '0');
-                const ano = date.getFullYear();
-                return `${dia}/${mes}/${ano}`;
+                const date = moment(data).format('DD/MM/YYYY');
+                return date;
             }
             return '';
-        },
+        }
+
     },
     mounted() {
         this.fetchOrcamentos();

@@ -49,6 +49,37 @@ class OrcamentoControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+
+
+    /**
+     * Testa a validação da criação de um orçamento.
+     *
+     * @return void
+     */
+    public function test_store_creates_orcamento_with_invalid_data()
+{
+    $data = [
+        'cliente' => 'Cliente Teste',
+        'titulo' => 'Título Teste',
+        'data' => 'valor invalido',
+        'hora' => 'valor invalido',
+        'descricao' => 'Teste de descrição',
+        'vendedor' => 'Vendedor Teste',
+        'valor' => 'valor invalido',
+        'email' => 'valor invalido',
+        'fone' => '1234567890g',
+    ];
+
+    $response = $this->withHeaders(['Accept' => 'application/json'])
+        ->post('/addOrcamento', $data);
+
+    $response->assertStatus(422);
+
+    // Verifica as mensagens de erro específicas
+    $response->assertJsonValidationErrors(['data', 'hora', 'valor', 'email', 'fone']);
+}
+
+
     /**
      * Testa a atualização de um orçamento.
      *
@@ -58,17 +89,56 @@ class OrcamentoControllerTest extends TestCase
     {
         $orcamento = \App\Models\Orcamento::factory()->create();
         $data = [
-            'cliente' => 'Cliente Atualizado',
-            'titulo' => 'Título Atualizado',
-            // Adicione outros campos do seu orçamento aqui
+            'cliente' => 'Cliente Teste',
+            'titulo' => 'Título Teste',
+            'data' => '2023/09/10',
+            'hora' => '12:00',
+            'descricao' => 'Teste de descrição',
+            'vendedor' => 'Vendedor Teste',
+            'valor' => '450.50',
+            'email' => 'teste@teste.com',
+            'fone' => '31999999999',
         ];
 
         $response = $this->put("/api/orcamentosUpdate/{$orcamento->id}", $data);
 
         $response->assertStatus(200);
-
-        // Adicione mais asserções para verificar se o orçamento foi atualizado corretamente
     }
+
+
+
+    /**
+     * Testa a validação da edição de um orçamento.
+     *
+     * @return void
+     */
+    public function test_update_orcamento_with_invalid_data()
+    {
+        $orcamento = \App\Models\Orcamento::factory()->create();
+    
+        $data = [
+            'cliente' => 'Cliente Teste',
+            'titulo' => 'Título Teste',
+            'data' => 'valor invalido',
+            'hora' => 'valor invalido',
+            'descricao' => 'Teste de descrição',
+            'vendedor' => 'Vendedor Teste',
+            'valor' => 'valor invalido',
+            'email' => 'valor invalido', 
+            'fone' => '1234567890g',
+        ];
+    
+        $response = $this->withHeaders(['Accept' => 'application/json'])
+    ->put("/api/orcamentosUpdate/{$orcamento->id}", $data);
+
+    
+        $response->assertStatus(422); 
+    
+        // Verifica as mensagens de erro específicas
+        $response->assertJsonValidationErrors(['valor', 'email', 'data', 'hora', 'fone']);
+    }
+    
+
 
     /**
      * Testa a exclusão de um orçamento.

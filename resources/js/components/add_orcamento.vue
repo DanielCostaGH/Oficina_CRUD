@@ -159,6 +159,8 @@ export default {
     },
     submitForm() {
       this.showErrors = true;
+      
+
       // Validação do campo título
       if (!this.formData.titulo) {
         alert('O campo "Título do Orçamento" é obrigatório.');
@@ -173,7 +175,7 @@ export default {
 
       // Validação do campo data
       if (!this.formData.data) {
-        alert('O campo "Data do Orçamento" é obrigatório.');
+        alert('O campo "Data do Orçamento" é obrigatório e deve ser válido.');
         return;
       }
 
@@ -183,23 +185,12 @@ export default {
         return;
       }
 
-      // Validação do campo descrição
-      if (!this.formData.descricao) {
-        alert('O campo "Descrição" é obrigatório.');
-        return;
-      }
-
-      // Validação do campo vendedor
-      if (!this.formData.vendedor) {
-        alert('O campo "Vendedor" é obrigatório.');
-        return;
-      }
-
       // Validação do campo valor
-      if (!/^\d+(\.\d+)?$/.test(this.formData.valor)) {
+      if (!/^\d+(\.\d+)?$/.test(this.formData.valor) && this.formData.valor !== "") {
         alert('O campo "Valor Orçado" deve ser um número decimal válido.');
         return;
       }
+
 
       // Validação do campo email
       if (!this.formData.email || !/^\S+@\S+\.\S+$/.test(this.formData.email)) {
@@ -208,12 +199,11 @@ export default {
       }
 
       // Validação do campo fone
-      if (!this.formData.fone || !/^\d{9,11}$/.test(this.formData.fone)) {
-        alert('O campo "Número de Telefone" deve conter de 9 a 11 dígitos.');
+      if (!this.formData.fone || !/^\d{11}$/.test(this.formData.fone)) {
+        alert('O campo "Número de Telefone" deve conter 11 dígitos numéricos, Exemplo: DDD + 000000000.');
         return;
       }
-
-
+    
       if (!this.formData.titulo || !this.formData.cliente || !this.formData.data || !this.formData.hora ||
         !this.formData.descricao || !this.formData.vendedor || !this.formData.valor || !this.formData.email ||
         !this.formData.fone) {

@@ -23,7 +23,7 @@
                 </label>
                 <input type="text" id="titulo" name="titulo" v-model="orcamento.titulo"
                   class="mt-1 w-full  block sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
+                <!-- Mensagem de erro para Título -->
                 <p v-if="showErrors && !orcamento.titulo" class="text-red-500 text-sm mt-2">O título é obrigatório.</p>
               </div>
 
@@ -33,8 +33,9 @@
                 </label>
                 <input type="text" id="cliente" name="cliente" v-model="orcamento.cliente"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.cliente" class="text-red-500 text-sm mt-2">O nome do cliente é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.cliente" class="text-red-500 text-sm mt-2">O nome do cliente é
+                  obrigatório.</p>
               </div>
             </section>
 
@@ -46,17 +47,18 @@
                   </label>
                   <input type="date" id="data" name="data" v-model="orcamento.data"
                     class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                    <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.data" class="text-red-500 text-sm mt-2">O campo data é obrigatório.</p>
+                  <!-- Mensagem de erro para Título -->
+                  <p v-if="showErrors && !orcamento.data" class="text-red-500 text-sm mt-2">O campo data é obrigatório.
+                  </p>
                 </div>
                 <div class="px-3 py-2">
                   <label for="hora" class="block text-sm font-medium text-gray-700 mb-2">
                     Hora do Orçamento
                   </label>
-                  <input type="time" id="hora" name="hora" v-model="orcamento.hora"
+                  <input type="time" id="hora" name="hora" v-model="orcamento.hora" @blur="formatTime"
                     class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                    <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.hora" class="text-red-500 text-sm mt-2">O horário é obrigatório.</p>
+                  <!-- Mensagem de erro para Título -->
+                  <p v-if="showErrors && !orcamento.hora" class="text-red-500 text-sm mt-2">O horário é obrigatório.</p>
                 </div>
               </div>
             </div>
@@ -67,8 +69,9 @@
               </label>
               <textarea id="descricao" name="descricao" v-model="orcamento.descricao" rows="4"
                 class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2"></textarea>
-                <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.descricao" class="text-red-500 text-sm mt-2">A descrição é obrigatória.</p>
+              <!-- Mensagem de erro para Título -->
+              <p v-if="showErrors && !orcamento.descricao" class="text-red-500 text-sm mt-2">A descrição é obrigatória.
+              </p>
             </div>
 
             <section class="flex w-full justify-between">
@@ -78,8 +81,9 @@
                 </label>
                 <input type="text" id="vendedor" name="vendedor" v-model="orcamento.vendedor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                   <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.vendedor" class="text-red-500 text-sm mt-2">O nome do vendedor é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.vendedor" class="text-red-500 text-sm mt-2">O nome do vendedor é
+                  obrigatório.</p>
               </div>
 
               <div class="mb-6 px-3 py-2 w-2/5">
@@ -88,8 +92,8 @@
                 </label>
                 <input type="text" id="valor" name="valor" v-model="orcamento.valor"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                   <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && errors.valor" class="text-red-500 text-sm mt-2">{{ errors.valor[0] }}</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.valor" class="text-red-500 text-sm mt-2">O campo valor é obrigatório</p>
               </div>
             </section>
 
@@ -100,8 +104,9 @@
                 </label>
                 <input type="email" id="email" name="email" v-model="orcamento.email"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.email" class="text-red-500 text-sm mt-2">O email do cliente é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.email" class="text-red-500 text-sm mt-2">O email do cliente é
+                  obrigatório.</p>
               </div>
 
               <div class="mb-6 px-3 py-2 w-2/5">
@@ -110,8 +115,9 @@
                 </label>
                 <input type="text" id="fone" name="fone" v-model="orcamento.fone"
                   class="mt-1 block w-full sm:text-sm shadow border-b border-gray-400 rounded-md px-3 py-2" />
-                  <!-- Mensagem de erro para Título -->
-                <p v-if="showErrors && !orcamento.fone" class="text-red-500 text-sm mt-2">O numero do cliente é obrigatório.</p>
+                <!-- Mensagem de erro para Título -->
+                <p v-if="showErrors && !orcamento.fone" class="text-red-500 text-sm mt-2">O numero do cliente é
+                  obrigatório.</p>
               </div>
             </section>
 
@@ -143,66 +149,20 @@ export default {
 
   methods: {
     closeEditModal() {
-            this.$emit('close-modal'); // Emita o evento personalizado para fechar o modal
-        },
-    
-        submitForm() {
+      this.$emit('close-modal'); 
+    },
+
+    formatTime: function () {
+      if (this.orcamento.hora) {
+        this.orcamento.hora = this.orcamento.hora.slice(0, 5);
+      }
+    },
+
+    submitForm() {
       this.showErrors = true;
+      this.formatTime();
 
 
-     // Validação do campo título
-    if (!this.orcamento.titulo) {
-      alert('O campo "Título do Orçamento" é obrigatório.');
-      return;
-    }
-
-    // Validação do campo cliente
-    if (!this.orcamento.cliente) {
-      alert('O campo "Cliente" é obrigatório.');
-      return;
-    }
-
-    // Validação do campo data
-    if (!this.orcamento.data) {
-      alert('O campo "Data do Orçamento" é obrigatório.');
-      return;
-    }
-
-    // Validação do campo hora
-    if (!this.orcamento.hora) {
-      alert('O campo "Hora do Orçamento" é obrigatório.');
-      return;
-    }
-
-    // Validação do campo descrição
-    if (!this.orcamento.descricao) {
-      alert('O campo "Descrição" é obrigatório.');
-      return;
-    }
-
-    // Validação do campo vendedor
-    if (!this.orcamento.vendedor) {
-      alert('O campo "Vendedor" é obrigatório.');
-      return;
-    }
-
-    // Validação do campo valor
-    if (!/^\d+(\.\d+)?$/.test(this.orcamento.valor)) {
-      alert('O campo "Valor Orçado" deve ser um número decimal válido.');
-      return;
-    }
-
-    // Validação do campo email
-    if (!this.orcamento.email || !/^\S+@\S+\.\S+$/.test(this.orcamento.email)) {
-      alert('O campo "Email" deve ser um endereço de email válido.');
-      return;
-    }
-
-    // Validação do campo fone
-if (!this.orcamento.fone || !/^\d{9,11}$/.test(this.orcamento.fone)) {
-  alert('O campo "Número de Telefone" deve conter de 9 a 11 dígitos.');
-  return;
-}
 
       const dados = {
         titulo: this.orcamento.titulo,
@@ -223,22 +183,61 @@ if (!this.orcamento.fone || !/^\d{9,11}$/.test(this.orcamento.fone)) {
           alert("Orçamento atualizado com sucesso");
           window.location.href = '/';
         })
-        .catch((error) => {
-          console.error(error);
-          if (error.response) {
-            console.log("Response data:", error.response.data);
-            console.log("Response status:", error.response.status);
-
-            if (error.response.status === 422) {
-              // Erros de validação do back-end
-              this.errors = error.response.data.errors; // Armazena as mensagens de erro
-            }
+        .catch(error => {
+          // Erro na resposta
+          if (error.response && error.response.data) {
+            // Se houver dados de erro na resposta
+            this.errors = error.response.data;
+            console.log('Response data:', this.errors);
           } else {
-            console.error(error);
-            alert("Ocorreu um erro ao enviar o formulário. Verifique o console para mais informações.");
+            console.error('Erro desconhecido:', error);
           }
         });
+
+      // Validação do campo título
+      if (!this.orcamento.titulo) {
+        alert('O campo "Título do Orçamento" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo cliente
+      if (!this.orcamento.cliente) {
+        alert('O campo "Cliente" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo data
+      if (!this.orcamento.data) {
+        alert('O campo "Data do Orçamento" é obrigatório e deve ser válido.');
+        return;
+      }
+
+      // Validação do campo hora
+      if (!this.orcamento.hora) {
+        alert('O campo "Hora do Orçamento" é obrigatório.');
+        return;
+      }
+
+      // Validação do campo valor
+      if (!/^\d+(\.\d+)?$/.test(this.orcamento.valor) && this.orcamento.valor !== "") {
+        alert('O campo "Valor Orçado" deve ser um número decimal válido.');
+        return;
+      }
+
+
+      // Validação do campo email
+      if (!this.orcamento.email || !/^\S+@\S+\.\S+$/.test(this.orcamento.email)) {
+        alert('O campo "Email" deve ser um endereço de email válido.');
+        return;
+      }
+
+      // Validação do campo fone
+      if (!this.orcamento.fone || !/^\d{11}$/.test(this.orcamento.fone)) {
+        alert('O campo "Número de Telefone" deve conter 11 dígitos numéricos, Exemplo: DDD + 000000000.');
+        return;
+      }
     }
+
   },
 };
 </script>

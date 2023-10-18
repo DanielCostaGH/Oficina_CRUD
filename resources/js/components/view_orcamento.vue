@@ -37,7 +37,7 @@
 
                         <div class="mb-6 px-3 py-2 w-2/5 shadow border-b border-gray-400 rounded-md">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Hora do Orçamento</label>
-                            <div>{{ orcamento.hora }}</div>
+                            <div>{{ formatTime(orcamento.hora) }}</div>
                         </div>
 
                     </section>
@@ -83,26 +83,37 @@
 </template>
   
 <script>
+import moment from 'moment';
+
 export default {
     props: ['orcamento'],
 
     methods: {
         closeViewModal() {
-            this.$emit('close-modal'); // Emita o evento personalizado para fechar o modal
+            this.$emit('close-modal');
         },
 
-
-        formatarDataParaExibicao(data) {
-            if (data) {
-                const date = new Date(data);
-                const dia = (date.getDate() + 1).toString().padStart(2, '0');
-                const mes = (date.getMonth() + 1).toString().padStart(2, '0');
-                const ano = date.getFullYear();
-                return `${dia}/${mes}/${ano}`;
+        formatTime(hora) {
+            if (hora) {
+                return hora.slice(0, 5);
             }
             return '';
         },
+
+        formatarDataParaExibicao(data) {
+            if (data) {
+                const date = moment(data).format('DD/MM/YYYY');
+                return date;
+            }
+            return '';
+        }
     },
+
+    mounted() {
+        this.formatTime();
+    },
+
+
 };
 </script>
   

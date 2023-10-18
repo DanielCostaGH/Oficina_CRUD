@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Orcamento;
 use App\Http\Requests\OrcamentoRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
+
 
 
 
@@ -41,15 +43,23 @@ class OrcamentoController extends Controller
      * @param OrcamentoRequest $request O objeto de solicitação validado.
      * @return \Illuminate\Http\Response
      */
-     public function store(OrcamentoRequest $request)
-{
-    $data = $request->all();
-    Orcamento::create($data);
+    public function store(OrcamentoRequest $request)
+    {
+        // Valida os dados usando o OrcamentoRequest
+        $validator = Validator::make($request->all(), $request->rules(), $request->messages());
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        $data = $request->all();
+        Orcamento::create($data);
+    
+        return response()->json(['message' => 'Orçamento criado com sucesso']);
+    }
+    
 
-    return view('orcamentos.index')
-        ->with('success', 'Orçamento criado com sucesso.');
-}
-
+    
 
    
      /**
@@ -59,7 +69,7 @@ class OrcamentoController extends Controller
      * @param int $id ID do orçamento a ser atualizado.
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrcamentoRequest $request, $id)
 {
     $orcamento = Orcamento::find($id);
 
@@ -67,11 +77,22 @@ class OrcamentoController extends Controller
         return response()->json(['message' => 'Orçamento não encontrado'], 404);
     }
 
+        // Valida os dados usando o OrcamentoRequest
+        $validator = Validator::make($request->all(), $request->rules(), $request->messages());
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
     $data = $request->all();
     $orcamento->update($data);
 
     return response()->json(['message' => 'Orçamento atualizado com sucesso']);
 }
+
+
+
+
 
 
     /**
@@ -92,6 +113,8 @@ class OrcamentoController extends Controller
 
     return response()->json(['message' => 'Orçamento excluído com sucesso']);
 }
+
+
 
 
 

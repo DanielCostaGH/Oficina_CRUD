@@ -35,7 +35,7 @@ class OrcamentoRequest extends FormRequest
             'vendedor' => 'required|string|max:255',
             'valor' => 'required|numeric',
             'email' => 'required|email',
-            'fone' => 'required|string|max:11',
+            'fone' => 'nullable|numeric|digits:11',
         ];
     }
 
@@ -62,10 +62,10 @@ class OrcamentoRequest extends FormRequest
             'cliente.string' => 'O campo Título deve ser um texto',
             'descricao.string' => 'O campo Título deve ser um texto',
             'vendedor.string' => 'O campo Título deve ser um texto',
-            'fone.string' => 'O campo Telefone deve ser um numero válido',
+            'fone.numeric' => 'O campo "Telefone" deve conter 11 dígitos numéricos.',
             'data.date' => 'O campo Data deve ser uma data válida',
             'hora.date_format' => 'O campo Hora deve estar no formato HH:MM',
-            'valor.numeric' => 'O campo Valor deve ser um número',
+            'valor.numeric' => 'O campo "Valor Orçado" deve ser um número decimal válido.',
             'email.email' => 'O campo Email deve ser um endereço de e-mail válido',
         ];
     }
