@@ -9,6 +9,7 @@
 * [Introdução](#introdução)
 * [Tecnologias Usadas](#tecnologias-usadas)
 * [Como Rodar o Projeto](#como-rodar-o-projeto)
+* [Testes Unitários](#testes-unitarios)
 
 ## Introdução
 
@@ -52,4 +53,7 @@ Parar o Redis: <code>sudo systemctl stop redis</code>
 O projeto deve estar disponível em http://localhost
 
 Agora, você está pronto para usar o Oficina 2.0!
+
+## Testes Unitarios
+Para rodar os testes unitários basta executar o seguinte comando: <code>sail artisan test --filter OrcamentoControllerTest</code>
 
