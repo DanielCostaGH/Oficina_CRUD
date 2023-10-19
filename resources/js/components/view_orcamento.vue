@@ -140,10 +140,7 @@ export default {
             html2canvas(mainSection, { scale: 4 }).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
 
-                // Adicionar a imagem ao PDF
-                doc.addImage(imgData, 'PNG', 10, 10, 190, 0);
-
-                // Salvar ou abrir o PDF, dependendo do que você deseja
+                doc.addImage(imgData, 'JPEG', 10, 10, 190, 0);
                 doc.save('arquivo.pdf');
             });
         },
